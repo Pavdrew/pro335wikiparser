@@ -10,14 +10,11 @@ import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import group5.model.Team;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.List;
 
 public class Driver {
@@ -26,7 +23,7 @@ public class Driver {
 
     public void run() {
 
-       String path = "baseball.xml";
+        String path = "baseball.xml";
 
         List<Team> teamList = xmlTeamParser(path);
 
@@ -41,11 +38,11 @@ public class Driver {
         System.out.println("Parsing Teams");
 
         XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
-        try{
+        try {
             XMLEventReader xmlEventReader = xmlInputFactory.createXMLEventReader(new FileInputStream(path));
-            while (xmlEventReader.hasNext()){
+            while (xmlEventReader.hasNext()) {
                 XMLEvent xmlEvent = xmlEventReader.nextEvent();
-                if (xmlEvent.isStartElement()){
+                if (xmlEvent.isStartElement()) {
                     StartElement startElement = xmlEvent.asStartElement();
                     if (startElement.getName().getLocalPart().equals("Customer")) {
                         team = new Team();
@@ -61,12 +58,9 @@ public class Driver {
                 }
             }
 
-        }catch (FileNotFoundException | XMLStreamException e) {
-        e.printStackTrace();
-    }
-
-
-
+        } catch (FileNotFoundException | XMLStreamException e) {
+            e.printStackTrace();
+        }
 
 
         return teams;
@@ -95,7 +89,7 @@ public class Driver {
                 statement.addBatch();
                 teamCounter++;
 
-                if(teamCounter > 65000) {
+                if (teamCounter > 65000) {
                     statement.executeBatch();
                     teamCounter = 0;
                 }
