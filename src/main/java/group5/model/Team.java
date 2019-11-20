@@ -8,6 +8,9 @@ public class Team {
 
     private String sportType;
 
+    public Team() {
+    }
+
     public Team(String teamName, String teamLocation, String sportType) {
         setTeamName(teamName);
         setTeamLocation(teamLocation);
