@@ -1,4 +1,4 @@
-package group5;
+package group5.controller;
 
 public class Controller {
 

@@ -1,4 +1,4 @@
-package group5;
+package group5.model;
 
 public class Team {
 
