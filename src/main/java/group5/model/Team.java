@@ -6,9 +6,20 @@ public class Team {
 
     private String teamLocation;
 
-    public Team(String teamName, String teamLocation) {
+    private String sportType;
+
+    public Team(String teamName, String teamLocation, String sportType) {
         setTeamName(teamName);
         setTeamLocation(teamLocation);
+        setSportType(sportType);
+    }
+
+    public String getSportType() {
+        return sportType;
+    }
+
+    public void setSportType(String sportType) {
+        this.sportType = sportType;
     }
 
     public String getTeamName() {
