@@ -11,6 +11,9 @@ import java.util.List;
 public class Driver {
 
     Connection connection;
+    String teamRegex = "'''\\[\\[([A-Za-z.\\s]*)\\]\\]'''";
+    String singleCityRegex = "'''\\s\\|\\[\\[([A-Za-z,\\s]*)\\]\\],\\s\\[\\[([A-z]*)";
+    String cityRegex = "\\[\\[([A-Za-z\\s]*, [A-z]*)";
 
     public void run() {
         connectToDb();
