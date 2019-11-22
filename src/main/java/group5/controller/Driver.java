@@ -36,7 +36,7 @@ public class Driver {
 
         for (File file : listOfFiles) {
             if (file.isFile()) {
-                teams = getTeamInfo(xmlTeamParser(file), file.getName());
+                teams = getTeamInfo(xmlTeamParser(file), file.getName().split(".xml")[0]);
                 bulkInsertTeams(teams);
             }
         }
@@ -49,7 +49,7 @@ public class Driver {
         List<Team> teams = new ArrayList<>();
 
         Team team = new Team();
-        System.out.println("Parsing Teams");
+        System.out.println("Parsing " + path.getName().split(".xml")[0]);
         String text = "";
         XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
         try {
@@ -113,7 +113,7 @@ public class Driver {
     }
 
     private void bulkInsertTeams(List<Team> teams) {
-        String sql = "INSERT INTO sport_teams (team_name, team_location, sport_type) " + "VALUES (?,?,?)";
+        String sql = "INSERT INTO teams (team_name, team_location, sport_type) " + "VALUES (?,?,?)";
         int teamCounter = 0;
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
