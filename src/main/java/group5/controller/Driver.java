@@ -20,9 +20,7 @@ import java.util.List;
 public class Driver {
 
     Connection connection;
-    String teamRegex = "'''\\[\\[([A-Za-z.\\s]*)\\]\\]'''";
-    String singleCityRegex = "'''\\s\\|\\[\\[([A-Za-z,\\s]*)\\]\\],\\s\\[\\[([A-z]*)";
-    String cityRegex = "\\[\\[([A-Za-z\\s]*, [A-z]*)";
+    String regex = "\\| ?'''\\[\\[([a-zA-Z\\s\\.]+)\\]\\]'''\\n\\| ?\\[\\[(([a-zA-Z\\s\\.])*\\|?([a-zA-Z\\s\\.,]+))\\]\\]";
 
     public void run() {
 
