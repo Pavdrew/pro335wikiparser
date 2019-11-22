@@ -16,6 +16,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Driver {
 
@@ -63,6 +65,26 @@ public class Driver {
             e.printStackTrace();
         }
 
+
+        return teams;
+    }
+
+    private List<Team> getTeamInfo(String data, String sportType) {
+        List<Team> teams = new ArrayList<>();
+
+        Pattern p = Pattern.compile(regex);
+        Matcher m =p.matcher(data);
+        String teamName, teamLocation;
+        while(m.find()) {
+            teamName = m.group(1);
+            if(m.group(2).contains("|")) {
+                teamLocation = m.group(4);
+            } else {
+                teamLocation = m.group(2);
+            }
+
+            teams.add(new Team(teamName, teamLocation, sportType));
+        }
 
         return teams;
     }
