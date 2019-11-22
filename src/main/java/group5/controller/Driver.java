@@ -8,6 +8,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.events.EndElement;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.sql.Connection;
@@ -26,14 +27,24 @@ public class Driver {
 
     public void run() {
 
-        String path = "baseball.xml";
+        File folder = new File("xml files");
+        File[] listOfFiles = folder.listFiles();
 
-        List<Team> teamList = xmlTeamParser(path);
+        List<Team> teams = new ArrayList<>();
 
         connectToDb();
+
+        for (File file : listOfFiles) {
+            if (file.isFile()) {
+                teams = getTeamInfo(xmlTeamParser(file), file.getName());
+                bulkInsertTeams(teams);
+            }
+        }
+
+
     }
 
-    private String xmlTeamParser(String path) {
+    private String xmlTeamParser(File path) {
 
         List<Team> teams = new ArrayList<>();
 
@@ -53,6 +64,7 @@ public class Driver {
                             text += xmlEvent.asCharacters().getData();
                         }
                     }
+
                 }
 
                 if (xmlEvent.isEndElement()) {
