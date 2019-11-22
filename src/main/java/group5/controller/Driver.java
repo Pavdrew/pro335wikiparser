@@ -33,13 +33,13 @@ public class Driver {
         connectToDb();
     }
 
-    private List<Team> xmlTeamParser(String path) {
+    private String xmlTeamParser(String path) {
 
         List<Team> teams = new ArrayList<>();
 
         Team team = new Team();
         System.out.println("Parsing Teams");
-
+        String text = "";
         XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
         try {
             XMLEventReader xmlEventReader = xmlInputFactory.createXMLEventReader(new FileInputStream(path));
@@ -47,15 +47,17 @@ public class Driver {
                 XMLEvent xmlEvent = xmlEventReader.nextEvent();
                 if (xmlEvent.isStartElement()) {
                     StartElement startElement = xmlEvent.asStartElement();
-                    if (startElement.getName().getLocalPart().equals("Customer")) {
-                        team = new Team();
+                    if (startElement.getName().getLocalPart().equals("text")) {
+                        for (int i = 0; i < 1300; i++) {
+                            xmlEvent = xmlEventReader.nextEvent();
+                            text += xmlEvent.asCharacters().getData();
+                        }
                     }
-
                 }
 
                 if (xmlEvent.isEndElement()) {
                     EndElement endElement = xmlEvent.asEndElement();
-                    if (endElement.getName().getLocalPart().equals("Customer")) {
+                    if (endElement.getName().getLocalPart().equals("text")) {
                         teams.add(team);
                     }
                 }
@@ -66,7 +68,7 @@ public class Driver {
         }
 
 
-        return teams;
+        return text;
     }
 
     private List<Team> getTeamInfo(String data, String sportType) {
